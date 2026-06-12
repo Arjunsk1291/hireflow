@@ -1,0 +1,375 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  master
+  hr_admin
+  svp
+  team_manager
+  team_lead
+  interviewer
+  finance_approver
+}
+
+enum CandidateStatus {
+  cv_submitted
+  cv_review
+  cv_shortlisted
+  cv_rejected
+  interview_scheduled
+  interview_complete
+  interview_rejected
+  offer_drafted
+  offer_pending_approval
+  offer_approved
+  offer_sent
+  offer_accepted
+  offer_declined
+  offer_countered
+  hired
+  withdrawn
+}
+
+enum ApprovalStep {
+  panel_lead
+  hr_admin
+  svp
+  finance_approver
+  master
+}
+
+enum ApprovalStatus {
+  pending
+  approved
+  rejected
+}
+
+enum InterviewMode {
+  teams
+  in_person
+  phone
+}
+
+enum FeedbackRecommendation {
+  strong_hire
+  hire
+  no_hire
+  strong_no_hire
+}
+
+model Profile {
+  id         String   @id @default(cuid())
+  fullName   String
+  email      String   @unique
+  password   String
+  avatarUrl  String?
+  department String?
+  title      String?
+  roles      String   @default("[]")
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  submittedCandidates  Candidate[]         @relation("SubmittedBy")
+  assignedCandidates   Candidate[]         @relation("AssignedHR")
+  cvReviewsAssigned    CvReview[]          @relation("AssignedBy")
+  cvReviewsReviewed    CvReview[]          @relation("Reviewer")
+  interviewsScheduled  Interview[]         @relation("ScheduledBy")
+  panelMemberships     InterviewPanel[]
+  feedbackSubmitted    InterviewFeedback[]
+  offersAsHR           Offer[]             @relation("OfferHR")
+  offersReportingTo    Offer[]             @relation("ReportingTo")
+  approvals            OfferApproval[]
+  notifications        Notification[]
+  auditEvents          AuditEvent[]
+  salaryBandsCreated   SalaryBand[]
+  onboardingHandoffs   OnboardingHandoff[]
+
+  @@map("profiles")
+}
+
+model SalaryBand {
+  id            String    @id @default(cuid())
+  roleTitle     String
+  level         String
+  department    String
+  minSalary     Float
+  maxSalary     Float
+  currency      String    @default("USD")
+  location      String?
+  effectiveFrom DateTime
+  effectiveTo   DateTime?
+  isActive      Boolean   @default(true)
+  createdById   String?
+  createdAt     DateTime  @default(now())
+
+  createdBy  Profile?    @relation(fields: [createdById], references: [id])
+  candidates Candidate[]
+  offers     Offer[]
+
+  @@unique([roleTitle, level, department, effectiveFrom])
+  @@map("salary_bands")
+}
+
+model Candidate {
+  id               String          @id @default(cuid())
+  fullName         String
+  email            String
+  phone            String?
+  nationality      String?
+  currentLocation  String?
+  currentTitle     String?
+  currentEmployer  String?
+  yearsExperience  Float?
+  linkedinUrl      String?
+  source           String?
+  appliedRoleTitle String
+  salaryBandId     String?
+  expectedSalary   Float?
+  currency         String          @default("USD")
+  cvFilePath       String?
+  cvExtractedData  String?
+  status           CandidateStatus @default(cv_submitted)
+  assignedHrId     String?
+  submittedById    String?
+  notes            String?
+  tags             String          @default("[]")
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  salaryBand        SalaryBand?       @relation(fields: [salaryBandId], references: [id])
+  assignedHR        Profile?          @relation("AssignedHR", fields: [assignedHrId], references: [id])
+  submittedBy       Profile?          @relation("SubmittedBy", fields: [submittedById], references: [id])
+  cvReviews         CvReview[]
+  interviews        Interview[]
+  offer             Offer?
+  auditEvents       AuditEvent[]      @relation("CandidateAudit")
+  onboardingHandoff OnboardingHandoff?
+
+  @@map("candidates")
+}
+
+model CvReview {
+  id              String    @id @default(cuid())
+  candidateId     String
+  reviewerId      String
+  assignedById    String
+  scoreTechnical  Int?
+  scoreExperience Int?
+  scoreCulture    Int?
+  decision        String?
+  comments        String?
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+
+  candidate  Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  reviewer   Profile   @relation("Reviewer", fields: [reviewerId], references: [id])
+  assignedBy Profile   @relation("AssignedBy", fields: [assignedById], references: [id])
+
+  @@unique([candidateId, reviewerId])
+  @@map("cv_reviews")
+}
+
+model Interview {
+  id             String        @id @default(cuid())
+  candidateId    String
+  roundNumber    Int           @default(1)
+  roundName      String?
+  mode           InterviewMode @default(teams)
+  scheduledAt    DateTime?
+  durationMins   Int           @default(60)
+  meetingLink    String?
+  teamsMeetingId String?
+  icsUid         String?
+  location       String?
+  status         String        @default("pending")
+  scheduledById  String?
+  notes          String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  candidate   Candidate         @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  scheduledBy Profile?          @relation("ScheduledBy", fields: [scheduledById], references: [id])
+  panel       InterviewPanel[]
+  feedback    InterviewFeedback[]
+
+  @@map("interviews")
+}
+
+model InterviewPanel {
+  id           String    @id @default(cuid())
+  interviewId  String
+  panelistId   String
+  isLead       Boolean   @default(false)
+  inviteSentAt DateTime?
+
+  interview Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  panelist  Profile   @relation(fields: [panelistId], references: [id])
+
+  @@unique([interviewId, panelistId])
+  @@map("interview_panel")
+}
+
+model InterviewFeedback {
+  id                   String                  @id @default(cuid())
+  interviewId          String
+  panelistId           String
+  scoreTechnical       Int?
+  scoreCommunication   Int?
+  scoreProblemSolving  Int?
+  scoreCultureFit      Int?
+  scoreDomainKnowledge Int?
+  recommendation       FeedbackRecommendation?
+  strengths            String?
+  concerns             String?
+  detailedNotes        String?
+  submittedAt          DateTime?
+  createdAt            DateTime                @default(now())
+
+  interview Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  panelist  Profile   @relation(fields: [panelistId], references: [id])
+
+  @@unique([interviewId, panelistId])
+  @@map("interview_feedback")
+}
+
+model Offer {
+  id              String    @id @default(cuid())
+  candidateId     String    @unique
+  salaryBandId    String?
+  offeredSalary   Float?
+  currency        String    @default("USD")
+  outsideBand     Boolean   @default(false)
+  benefits        String?
+  startDate       DateTime?
+  contractType    String?
+  reportingToId   String?
+  location        String?
+  additionalNotes String?
+  token           String?   @unique
+  tokenExpiresAt  DateTime?
+  status          String    @default("draft")
+  offerLetterPath String?
+  signedOfferPath String?
+  hrId            String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  candidate   Candidate       @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  salaryBand  SalaryBand?     @relation(fields: [salaryBandId], references: [id])
+  reportingTo Profile?        @relation("ReportingTo", fields: [reportingToId], references: [id])
+  hr          Profile?        @relation("OfferHR", fields: [hrId], references: [id])
+  approvals   OfferApproval[]
+  response    OfferResponse?
+
+  @@map("offers")
+}
+
+model OfferApproval {
+  id         String         @id @default(cuid())
+  offerId    String
+  step       ApprovalStep
+  stepOrder  Int
+  approverId String?
+  status     ApprovalStatus @default(pending)
+  comments   String?
+  decidedAt  DateTime?
+  createdAt  DateTime       @default(now())
+
+  offer    Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  approver Profile? @relation(fields: [approverId], references: [id])
+
+  @@unique([offerId, stepOrder])
+  @@map("offer_approvals")
+}
+
+model OfferResponse {
+  id            String   @id @default(cuid())
+  offerId       String   @unique
+  action        String
+  counterSalary Float?
+  candidateNote String?
+  signedPath    String?
+  createdAt     DateTime @default(now())
+
+  offer Offer @relation(fields: [offerId], references: [id], onDelete: Cascade)
+
+  @@map("offer_responses")
+}
+
+model EmailConfig {
+  id           String   @id @default(cuid())
+  triggerEvent String   @unique
+  name         String
+  subject      String
+  bodyHtml     String
+  replyTo      String?
+  ccRoles      String   @default("[]")
+  isActive     Boolean  @default(true)
+  updatedById  String?
+  updatedAt    DateTime @updatedAt
+
+  @@map("email_configs")
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  userId     String
+  title      String
+  body       String?
+  link       String?
+  isRead     Boolean  @default(false)
+  type       String   @default("info")
+  entityType String?
+  entityId   String?
+  createdAt  DateTime @default(now())
+
+  user Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+model AuditEvent {
+  id          String   @id @default(cuid())
+  actorId     String?
+  actorEmail  String?
+  action      String
+  entityType  String
+  entityId    String?
+  candidateId String?
+  oldData     String?
+  newData     String?
+  metadata    String?
+  createdAt   DateTime @default(now())
+
+  actor     Profile?   @relation(fields: [actorId], references: [id])
+  candidate Candidate? @relation("CandidateAudit", fields: [candidateId], references: [id])
+
+  @@index([entityType, entityId])
+  @@map("audit_events")
+}
+
+model OnboardingHandoff {
+  id           String    @id @default(cuid())
+  candidateId  String    @unique
+  offerId      String?
+  assignedToId String?
+  startDate    DateTime?
+  status       String    @default("pending")
+  checklist    String    @default("[]")
+  notes        String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  candidate  Candidate @relation(fields: [candidateId], references: [id])
+  assignedTo Profile?  @relation(fields: [assignedToId], references: [id])
+
+  @@map("onboarding_handoffs")
+}

@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-base:          #050b14;
+  --bg-surface:       #0d1a2d;
+  --bg-card:          #101e33;
+  --bg-card-hover:    #132238;
+  --bg-input:         #0a1628;
+  --bg-overlay:       rgba(5, 11, 20, 0.92);
+
+  --amber-300:        #fcd34d;
+  --amber-400:        #fbbf24;
+  --amber-500:        #f59e0b;
+  --amber-600:        #d97706;
+  --amber-700:        #b45309;
+  --amber-glow-sm:    0 0 12px rgba(245, 158, 11, 0.25);
+  --amber-glow-md:    0 0 24px rgba(245, 158, 11, 0.35);
+  --amber-glow-lg:    0 0 48px rgba(245, 158, 11, 0.45);
+
+  --blue-400:         #60a5fa;
+  --blue-500:         #3b82f6;
+  --blue-glow:        0 0 20px rgba(59, 130, 246, 0.2);
+
+  --green-400:        #4ade80;
+  --green-500:        #22c55e;
+  --red-400:          #f87171;
+  --red-500:          #ef4444;
+  --orange-400:       #fb923c;
+  --orange-500:       #f97316;
+  --purple-400:       #c084fc;
+  --cyan-400:         #22d3ee;
+
+  --text-primary:     #f8fafc;
+  --text-secondary:   #94a3b8;
+  --text-muted:       #475569;
+  --text-amber:       #fbbf24;
+
+  --border-default:   rgba(148, 163, 184, 0.08);
+  --border-amber:     rgba(245, 158, 11, 0.2);
+  --border-strong:    rgba(245, 158, 11, 0.4);
+  --border-subtle:    rgba(148, 163, 184, 0.05);
+
+  --grid-faint:       rgba(59, 130, 246, 0.04);
+  --grid-subtle:      rgba(59, 130, 246, 0.08);
+  --grid-visible:     rgba(59, 130, 246, 0.14);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(var(--grid-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-faint) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.glass-card {
+  background: rgba(16, 30, 51, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-amber);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.glass-card:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), var(--amber-glow-sm), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.glow-amber-top::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(245,158,11,0.12) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-surface); }
+::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(245,158,11,0.5); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+.tab-active {
+  color: #fbbf24;
+  border-bottom: 2px solid #f59e0b;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

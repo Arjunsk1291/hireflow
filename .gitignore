@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# SQLite database
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Uploads
+/uploads/
+
+# env (keep template)
+!.env.example
