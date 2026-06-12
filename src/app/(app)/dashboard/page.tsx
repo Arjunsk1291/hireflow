@@ -1,19 +1,13 @@
 import { requireAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/prisma';
 import { PageHeader } from '@/components/layout/PageHeader';
-import { StatCard } from '@/components/dashboard/StatCard';
 import { ScrollReveal } from '@/components/animation/ScrollReveal';
 import { StaggerList } from '@/components/animation/StaggerList';
 import { StatusBadge } from '@/components/candidates/StatusBadge';
-import dynamic from 'next/dynamic';
-import { Users, Calendar, CheckSquare, TrendingUp, Award, Clock } from 'lucide-react';
 import { timeAgo, formatCurrency } from '@/lib/utils';
 import Link from 'next/link';
-
-const PipelineScene = dynamic(
-  () => import('@/components/three/PipelineScene').then((m) => ({ default: m.PipelineScene })),
-  { ssr: false, loading: () => <div className="h-[280px] flex items-center justify-center text-slate-600 text-sm">Loading pipeline...</div> },
-);
+import { PipelineSceneWrapper } from '@/components/dashboard/PipelineSceneWrapper';
+import { DashboardStats } from '@/components/dashboard/DashboardStats';
 
 async function getDashboardData() {
   const [
@@ -61,12 +55,12 @@ export default async function DashboardPage() {
       />
 
       {/* Stats */}
-      <ScrollReveal className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard title="Total Candidates" value={totalCandidates} icon={Users} color="#f59e0b" />
-        <StatCard title="Pending Reviews"  value={pendingReviews}  icon={Clock}  color="#60a5fa" />
-        <StatCard title="Pending Approvals"value={pendingApprovals}icon={CheckSquare} color="#c084fc" />
-        <StatCard title="Hired This Cycle" value={hired}           icon={Award}  color="#4ade80" />
-      </ScrollReveal>
+      <DashboardStats
+        totalCandidates={totalCandidates}
+        pendingReviews={pendingReviews}
+        pendingApprovals={pendingApprovals}
+        hired={hired}
+      />
 
       {/* 3D Pipeline Hero */}
       <ScrollReveal className="glass-card mb-8 overflow-hidden">
@@ -75,7 +69,7 @@ export default async function DashboardPage() {
           <p className="text-xs text-slate-500">Live candidate distribution across all stages</p>
         </div>
         <div className="pipeline-hero">
-          <PipelineScene stageCounts={stageCounts} />
+          <PipelineSceneWrapper stageCounts={stageCounts} />
         </div>
       </ScrollReveal>
 

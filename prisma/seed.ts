@@ -8,13 +8,13 @@ async function main() {
 
   // Demo users
   const users = [
-    { email: 'admin@avenir.com', password: 'Admin@1234', fullName: 'Sarah Al-Rashidi', title: 'HR Director', department: 'Human Resources', roles: ['master_admin', 'hr_manager'] },
-    { email: 'hr@avenir.com', password: 'Hr@12345', fullName: 'Mohammed Al-Khalidi', title: 'HR Manager', department: 'Human Resources', roles: ['hr_manager'] },
-    { email: 'recruiter@avenir.com', password: 'Rec@1234', fullName: 'Priya Nair', title: 'Recruiter', department: 'Human Resources', roles: ['recruiter'] },
-    { email: 'dept@avenir.com', password: 'Dept@1234', fullName: 'James Thornton', title: 'Head of Engineering', department: 'Engineering', roles: ['department_head'] },
-    { email: 'finance@avenir.com', password: 'Fin@1234', fullName: 'Ahmed Hassan', title: 'Finance Director', department: 'Finance', roles: ['finance'] },
-    { email: 'interviewer@avenir.com', password: 'Int@1234', fullName: 'Liu Wei', title: 'Senior Engineer', department: 'Engineering', roles: ['interviewer'] },
-    { email: 'officer@avenir.com', password: 'Off@1234', fullName: 'Fatima Al-Ameri', title: 'HR Officer', department: 'Human Resources', roles: ['hr_officer'] },
+    { email: 'admin@avenir.com', password: 'Demo@2024', fullName: 'Sarah Al-Rashidi', title: 'HR Director', department: 'Human Resources', roles: ['master_admin', 'hr_manager'] },
+    { email: 'hr@avenir.com', password: 'Demo@2024', fullName: 'Mohammed Al-Khalidi', title: 'HR Manager', department: 'Human Resources', roles: ['hr_manager'] },
+    { email: 'recruiter@avenir.com', password: 'Demo@2024', fullName: 'Priya Nair', title: 'Recruiter', department: 'Human Resources', roles: ['recruiter'] },
+    { email: 'dept@avenir.com', password: 'Demo@2024', fullName: 'James Thornton', title: 'Head of Engineering', department: 'Engineering', roles: ['department_head'] },
+    { email: 'finance@avenir.com', password: 'Demo@2024', fullName: 'Ahmed Hassan', title: 'Finance Director', department: 'Finance', roles: ['finance'] },
+    { email: 'interviewer@avenir.com', password: 'Demo@2024', fullName: 'Liu Wei', title: 'Senior Engineer', department: 'Engineering', roles: ['interviewer'] },
+    { email: 'officer@avenir.com', password: 'Demo@2024', fullName: 'Fatima Al-Ameri', title: 'HR Officer', department: 'Human Resources', roles: ['hr_officer'] },
   ];
 
   const profiles: Record<string, string> = {};

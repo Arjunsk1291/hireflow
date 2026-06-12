@@ -2,10 +2,10 @@ import { requireAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/prisma';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ScrollReveal } from '@/components/animation/ScrollReveal';
-import { StatCard } from '@/components/dashboard/StatCard';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/lib/utils';
-import { Users, UserCheck, Clock, TrendingUp, BarChart3, Award } from 'lucide-react';
+import { BarChart3 } from 'lucide-react';
+import { ReportsStats } from '@/components/reports/ReportsStats';
 
 export default async function ReportsPage() {
   await requireAuth();
@@ -43,12 +43,12 @@ export default async function ReportsPage() {
 
       {/* KPI Cards */}
       <ScrollReveal>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <StatCard title="Total Candidates" value={totalCandidates} icon={Users} trend={0} />
-          <StatCard title="Hired" value={hired} icon={UserCheck} trend={0} color="#22c55e" />
-          <StatCard title="Offers Sent" value={offersData} icon={Award} trend={0} color="#f59e0b" />
-          <StatCard title="Conversion Rate" value={Number(conversionRate)} icon={TrendingUp} trend={0} suffix="%" color="#3b82f6" />
-        </div>
+        <ReportsStats
+          totalCandidates={totalCandidates}
+          hired={hired}
+          offersData={offersData}
+          conversionRate={Number(conversionRate)}
+        />
       </ScrollReveal>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

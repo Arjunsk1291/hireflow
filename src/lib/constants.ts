@@ -34,13 +34,13 @@ export const DURATION = {
 };
 
 export const DEMO_USERS = {
-  master:      { email: 'master@avenir.demo',      password: 'Demo@2024', role: 'Master Admin',        icon: '👑' },
-  hr_admin:    { email: 'hr@avenir.demo',           password: 'Demo@2024', role: 'HR Admin',            icon: '🧑‍💼' },
-  svp:         { email: 'svp@avenir.demo',          password: 'Demo@2024', role: 'SVP',                 icon: '🏢' },
-  team_manager:{ email: 'manager@avenir.demo',      password: 'Demo@2024', role: 'Team Manager',        icon: '📋' },
-  team_lead:   { email: 'lead@avenir.demo',         password: 'Demo@2024', role: 'Team Lead',           icon: '⚙️' },
-  interviewer: { email: 'interviewer@avenir.demo',  password: 'Demo@2024', role: 'Interviewer',         icon: '🎯' },
-  finance:     { email: 'finance@avenir.demo',      password: 'Demo@2024', role: 'Finance Approver',    icon: '💰' },
+  master:      { email: 'admin@avenir.com',         password: 'Demo@2024', role: 'Master Admin',        icon: '👑' },
+  hr_admin:    { email: 'hr@avenir.com',            password: 'Demo@2024', role: 'HR Manager',          icon: '🧑‍💼' },
+  svp:         { email: 'dept@avenir.com',          password: 'Demo@2024', role: 'Dept Head',           icon: '🏢' },
+  team_manager:{ email: 'officer@avenir.com',       password: 'Demo@2024', role: 'HR Officer',          icon: '📋' },
+  team_lead:   { email: 'recruiter@avenir.com',     password: 'Demo@2024', role: 'Recruiter',           icon: '⚙️' },
+  interviewer: { email: 'interviewer@avenir.com',   password: 'Demo@2024', role: 'Interviewer',         icon: '🎯' },
+  finance:     { email: 'finance@avenir.com',       password: 'Demo@2024', role: 'Finance Approver',    icon: '💰' },
 };
 
 export const NAV_ITEMS = [
