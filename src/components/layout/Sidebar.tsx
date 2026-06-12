@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
 import {
   LayoutDashboard, Users, Calendar, CheckSquare,
-  BarChart3, FileText, Settings, LogOut, Zap,
+  BarChart3, FileText, Settings, LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar } from '@/components/ui/avatar';
@@ -31,12 +31,10 @@ export function Sidebar({ session }: { session: Session }) {
 
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 h-16 border-b border-white/5">
-        <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center">
-          <Zap size={16} className="text-amber-400" />
-        </div>
+        <div className="w-2.5 h-2.5 rotate-45 bg-amber-500 shrink-0" style={{ boxShadow: '0 0 14px rgba(245,158,11,0.7)' }} />
         <div>
-          <div className="font-display text-sm text-amber-400">HIREFLOW</div>
-          <div className="text-[10px] text-slate-600">Avenir Int'l</div>
+          <div className="font-display text-sm text-slate-100 tracking-[0.18em]">HIREFLOW</div>
+          <div className="font-mono text-[9px] text-slate-600 tracking-[0.25em]">AVENIR INT&apos;L</div>
         </div>
       </div>
 

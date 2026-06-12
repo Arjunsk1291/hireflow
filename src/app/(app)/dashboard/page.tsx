@@ -105,19 +105,23 @@ export default async function DashboardPage() {
       </ScrollReveal>
 
       {/* Quick Links */}
-      <ScrollReveal className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <ScrollReveal className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { label: 'Add Candidate', href: '/candidates/new', icon: '➕', color: 'amber' },
-          { label: 'View Interviews', href: '/interviews', icon: '📅', color: 'blue' },
-          { label: 'Pending Approvals', href: '/approvals', icon: '✅', color: 'purple' },
-          { label: 'Reports', href: '/reports', icon: '📊', color: 'green' },
-        ].map((item) => (
+          { label: 'Add Candidate', href: '/candidates/new', desc: 'New CV intake' },
+          { label: 'Interviews', href: '/interviews', desc: 'Schedule & panels' },
+          { label: 'Approvals', href: '/approvals', desc: 'Pending sign-offs' },
+          { label: 'Reports', href: '/reports', desc: 'Pipeline analytics' },
+        ].map((item, i) => (
           <Link key={item.href} href={item.href}>
-            <div className="glass-card p-4 hover:border-amber-500/30 transition-all cursor-pointer text-center group">
-              <div className="text-2xl mb-2">{item.icon}</div>
-              <div className="text-xs font-medium text-slate-300 group-hover:text-amber-300 transition-colors">
+            <div className="glass-card p-5 cursor-pointer group relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/0 group-hover:via-amber-500/60 to-transparent transition-all duration-500" />
+              <div className="font-mono text-[10px] text-slate-600 group-hover:text-amber-500/80 transition-colors">
+                {String(i + 1).padStart(2, '0')}
+              </div>
+              <div className="font-display text-sm text-slate-200 group-hover:text-amber-300 mt-3 transition-colors">
                 {item.label}
               </div>
+              <div className="text-[11px] text-slate-600 mt-1">{item.desc}</div>
             </div>
           </Link>
         ))}
