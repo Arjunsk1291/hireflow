@@ -55,7 +55,7 @@ export default async function ReportsPage() {
         {/* Pipeline Status Breakdown */}
         <ScrollReveal>
           <div className="glass-card p-6">
-            <h2 className="font-display text-xs text-amber-400 mb-5 flex items-center gap-2">
+            <h2 className="font-display text-xs text-violet-400 mb-5 flex items-center gap-2">
               <BarChart3 size={14} /> PIPELINE STATUS
             </h2>
             <div className="space-y-3">
@@ -69,7 +69,7 @@ export default async function ReportsPage() {
                     </div>
                     <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full transition-all"
+                        className="h-full bg-gradient-to-r from-violet-500 to-violet-400 rounded-full transition-all"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -83,7 +83,7 @@ export default async function ReportsPage() {
         {/* Source Breakdown */}
         <ScrollReveal delay={0.1}>
           <div className="glass-card p-6">
-            <h2 className="font-display text-xs text-amber-400 mb-5">SOURCE BREAKDOWN</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-5">SOURCE BREAKDOWN</h2>
             <div className="space-y-3">
               {sourceGroups.filter((s) => s.source).map(({ source, _count }) => {
                 const pct = totalCandidates > 0 ? (_count.id / totalCandidates) * 100 : 0;
@@ -118,7 +118,7 @@ export default async function ReportsPage() {
         {/* Salary Insights */}
         <ScrollReveal>
           <div className="glass-card p-6">
-            <h2 className="font-display text-xs text-amber-400 mb-5">SALARY INSIGHTS</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-5">SALARY INSIGHTS</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-white/3 rounded-lg">
                 <span className="text-xs text-slate-400">Avg Expected Salary</span>
@@ -149,7 +149,7 @@ export default async function ReportsPage() {
         {/* Recent Hires */}
         <ScrollReveal delay={0.1}>
           <div className="glass-card p-6">
-            <h2 className="font-display text-xs text-amber-400 mb-5">RECENT HIRES</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-5">RECENT HIRES</h2>
             {recentHires.length === 0 ? (
               <p className="text-xs text-slate-500">No hires recorded yet.</p>
             ) : (
@@ -161,7 +161,7 @@ export default async function ReportsPage() {
                       <div className="text-xs text-slate-500">{hire.appliedRoleTitle}</div>
                     </div>
                     {hire.offer?.offeredSalary && (
-                      <div className="text-xs text-amber-400">{formatCurrency(hire.offer.offeredSalary, hire.offer.currency ?? 'USD')}</div>
+                      <div className="text-xs text-violet-400">{formatCurrency(hire.offer.offeredSalary, hire.offer.currency ?? 'USD')}</div>
                     )}
                   </div>
                 ))}

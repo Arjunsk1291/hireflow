@@ -17,7 +17,7 @@ export default async function AuditPage() {
 
   const ACTION_COLORS: Record<string, string> = {
     create: 'text-green-400 bg-green-500/10 border-green-500/20',
-    update: 'text-amber-400 bg-amber-500/10 border-amber-500/20',
+    update: 'text-violet-400 bg-violet-500/10 border-violet-500/20',
     delete: 'text-red-400 bg-red-500/10 border-red-500/20',
     login: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
     approve: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
@@ -63,7 +63,7 @@ export default async function AuditPage() {
                       </span>
                       <span className="text-xs text-slate-400">{event.entityType}</span>
                       {event.candidate && (
-                        <span className="text-xs text-amber-400/70">→ {event.candidate.fullName}</span>
+                        <span className="text-xs text-violet-400/70">→ {event.candidate.fullName}</span>
                       )}
                     </div>
 

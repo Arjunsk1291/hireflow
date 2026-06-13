@@ -22,14 +22,14 @@ export default async function SettingsPage() {
         <div className="glass-card divide-y divide-white/8">
           {SETTINGS_LINKS.map(({ href, icon: Icon, label, desc }) => (
             <Link key={href} href={href} className="flex items-center gap-4 p-4 hover:bg-white/3 transition-colors group">
-              <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-500/20 transition-colors">
-                <Icon size={16} className="text-amber-400" />
+              <div className="w-9 h-9 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-violet-500/20 transition-colors">
+                <Icon size={16} className="text-violet-400" />
               </div>
               <div className="flex-1">
                 <div className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors">{label}</div>
                 <div className="text-xs text-slate-500 mt-0.5">{desc}</div>
               </div>
-              <ChevronRight size={14} className="text-slate-600 group-hover:text-amber-400 transition-colors" />
+              <ChevronRight size={14} className="text-slate-600 group-hover:text-violet-400 transition-colors" />
             </Link>
           ))}
         </div>

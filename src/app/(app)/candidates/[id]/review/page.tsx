@@ -87,7 +87,7 @@ export default function ReviewPage() {
       <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider">{label}</label>
       <input
         type="range" min="1" max="10" defaultValue="5"
-        className="w-full accent-amber-500"
+        className="w-full accent-violet-500"
         {...register(name)}
       />
       <div className="flex justify-between text-xs text-slate-600">
@@ -105,7 +105,7 @@ export default function ReviewPage() {
 
       {/* Assign Reviewer */}
       <ScrollReveal className="glass-card p-6 mb-6">
-        <h2 className="font-display text-xs text-amber-400 mb-4">ASSIGN REVIEWER</h2>
+        <h2 className="font-display text-xs text-violet-400 mb-4">ASSIGN REVIEWER</h2>
         <div className="flex gap-3">
           <Select
             options={profiles.map((p) => ({ value: p.id, label: `${p.fullName}${p.title ? ` — ${p.title}` : ''}` }))}
@@ -123,7 +123,7 @@ export default function ReviewPage() {
       {/* Submit Review */}
       <ScrollReveal>
         <form onSubmit={handleSubmit(onSubmit as never)} className="glass-card p-6 space-y-6">
-          <h2 className="font-display text-xs text-amber-400 mb-4">SUBMIT SCORECARD</h2>
+          <h2 className="font-display text-xs text-violet-400 mb-4">SUBMIT SCORECARD</h2>
 
           <ScoreSlider name="scoreTechnical" label="Technical Skills (1–10)" />
           <ScoreSlider name="scoreExperience" label="Experience Level (1–10)" />

@@ -102,10 +102,10 @@ export default function NewCandidatePage() {
           {STEPS.map((s, i) => (
             <div key={s} className="flex items-center flex-1">
               <div className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                i === step ? 'text-amber-400' : i < step ? 'text-green-400' : 'text-slate-600'
+                i === step ? 'text-violet-400' : i < step ? 'text-green-400' : 'text-slate-600'
               }`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs border ${
-                  i === step ? 'bg-amber-500/20 border-amber-500/40 text-amber-400' :
+                  i === step ? 'bg-violet-500/20 border-violet-500/40 text-violet-400' :
                   i < step   ? 'bg-green-500/20 border-green-500/40 text-green-400' :
                                'border-white/10 text-slate-600'
                 }`}>
@@ -127,7 +127,7 @@ export default function NewCandidatePage() {
           <ScrollReveal className="space-y-6">
             <div className="glass-card p-6">
               <div className="flex items-center gap-2 mb-6">
-                <User size={18} className="text-amber-400" />
+                <User size={18} className="text-violet-400" />
                 <h2 className="font-semibold text-slate-200">Personal Information</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -146,7 +146,7 @@ export default function NewCandidatePage() {
           <ScrollReveal className="space-y-6">
             <div className="glass-card p-6">
               <div className="flex items-center gap-2 mb-6">
-                <Briefcase size={18} className="text-amber-400" />
+                <Briefcase size={18} className="text-violet-400" />
                 <h2 className="font-semibold text-slate-200">Role & Experience</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -189,7 +189,7 @@ export default function NewCandidatePage() {
           <ScrollReveal className="space-y-6">
             <div className="glass-card p-6">
               <div className="flex items-center gap-2 mb-6">
-                <FileText size={18} className="text-amber-400" />
+                <FileText size={18} className="text-violet-400" />
                 <h2 className="font-semibold text-slate-200">CV & Notes</h2>
               </div>
 
@@ -200,7 +200,7 @@ export default function NewCandidatePage() {
                 </label>
                 <div
                   className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                    cvFile ? 'border-green-500/40 bg-green-500/5' : 'border-white/10 hover:border-amber-500/30 hover:bg-amber-500/5'
+                    cvFile ? 'border-green-500/40 bg-green-500/5' : 'border-white/10 hover:border-violet-500/30 hover:bg-violet-500/5'
                   }`}
                   onClick={() => document.getElementById('cv-input')?.click()}
                 >
@@ -212,7 +212,7 @@ export default function NewCandidatePage() {
                     onChange={(e) => { const f = e.target.files?.[0]; if (f) handleCvUpload(f); }}
                   />
                   {uploading ? (
-                    <div className="flex flex-col items-center gap-2 text-amber-400">
+                    <div className="flex flex-col items-center gap-2 text-violet-400">
                       <svg className="animate-spin w-8 h-8" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />

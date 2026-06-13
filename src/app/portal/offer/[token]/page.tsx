@@ -63,13 +63,13 @@ export default function CandidatePortalPage() {
   };
 
   if (loading) return (
-    <div className="min-h-screen bg-[#050b14] flex items-center justify-center">
-      <Loader className="animate-spin text-amber-500" size={32} />
+    <div className="min-h-screen bg-[#0c0d12] flex items-center justify-center">
+      <Loader className="animate-spin text-violet-500" size={32} />
     </div>
   );
 
   if (error) return (
-    <div className="min-h-screen bg-[#050b14] flex items-center justify-center">
+    <div className="min-h-screen bg-[#0c0d12] flex items-center justify-center">
       <div className="text-center p-8 max-w-md">
         <XCircle size={48} className="text-red-400 mx-auto mb-4" />
         <h1 className="text-xl font-bold text-slate-200 mb-2">Link Expired or Invalid</h1>
@@ -79,7 +79,7 @@ export default function CandidatePortalPage() {
   );
 
   if (done) return (
-    <div className="min-h-screen bg-[#050b14] flex items-center justify-center">
+    <div className="min-h-screen bg-[#0c0d12] flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -93,9 +93,9 @@ export default function CandidatePortalPage() {
   );
 
   if (offer?.response) return (
-    <div className="min-h-screen bg-[#050b14] flex items-center justify-center">
+    <div className="min-h-screen bg-[#0c0d12] flex items-center justify-center">
       <div className="text-center p-8 max-w-md">
-        <CheckCircle size={48} className="text-amber-400 mx-auto mb-4" />
+        <CheckCircle size={48} className="text-violet-400 mx-auto mb-4" />
         <h1 className="text-xl font-bold text-slate-200 mb-2">Already Responded</h1>
         <p className="text-slate-500 text-sm">You have already submitted your response ({offer.response.action}). Contact HR if you need to update it.</p>
       </div>
@@ -103,7 +103,7 @@ export default function CandidatePortalPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#050b14] py-12 px-4">
+    <div className="min-h-screen bg-[#0c0d12] py-12 px-4">
       {/* Blueprint Grid */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.015]"
         style={{ backgroundImage: 'linear-gradient(#6b7280 1px, transparent 1px), linear-gradient(90deg, #6b7280 1px, transparent 1px)', backgroundSize: '48px 48px' }}
@@ -113,7 +113,7 @@ export default function CandidatePortalPage() {
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-6">
-            <Building2 size={24} className="text-amber-500" />
+            <Building2 size={24} className="text-violet-500" />
             <span className="text-lg font-bold text-slate-200">Avenir International Engineers</span>
           </div>
           <p className="text-slate-500 text-sm">Confidential Offer Letter</p>
@@ -131,13 +131,13 @@ export default function CandidatePortalPage() {
           </h1>
           <p className="text-slate-400 mb-6">
             We are pleased to extend the following offer for the position of{' '}
-            <span className="text-amber-400 font-medium">{offer?.candidate.appliedRoleTitle}</span>.
+            <span className="text-violet-400 font-medium">{offer?.candidate.appliedRoleTitle}</span>.
           </p>
 
           <div className="space-y-4">
-            <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
-              <p className="text-xs text-amber-400/70 uppercase tracking-wider mb-1">Offered Compensation</p>
-              <p className="text-3xl font-bold text-amber-400">
+            <div className="p-4 bg-violet-500/5 border border-violet-500/20 rounded-xl">
+              <p className="text-xs text-violet-400/70 uppercase tracking-wider mb-1">Offered Compensation</p>
+              <p className="text-3xl font-bold text-violet-400">
                 {formatCurrency(offer?.offeredSalary ?? 0, offer?.currency ?? 'USD')}
               </p>
               <p className="text-xs text-slate-500 mt-1">per annum · {offer?.contractType ?? 'Permanent'}</p>
@@ -177,7 +177,7 @@ export default function CandidatePortalPage() {
                 href={`/api/files/${offer.offerLetterPath}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-center py-2 px-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-amber-400 hover:text-amber-300 transition-colors"
+                className="block text-center py-2 px-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-violet-400 hover:text-violet-300 transition-colors"
               >
                 Download Full Offer Letter PDF →
               </a>
@@ -192,13 +192,13 @@ export default function CandidatePortalPage() {
           transition={{ delay: 0.2 }}
           className="glass-card p-6"
         >
-          <h2 className="font-display text-xs text-amber-400 mb-4">YOUR RESPONSE</h2>
+          <h2 className="font-display text-xs text-violet-400 mb-4">YOUR RESPONSE</h2>
 
           <div className="grid grid-cols-3 gap-3 mb-4">
             {[
               { value: 'accept', icon: CheckCircle, label: 'Accept', color: 'border-green-500/30 text-green-400 hover:bg-green-500/10' },
               { value: 'decline', icon: XCircle, label: 'Decline', color: 'border-red-500/30 text-red-400 hover:bg-red-500/10' },
-              { value: 'negotiate', icon: MessageSquare, label: 'Negotiate', color: 'border-amber-500/30 text-amber-400 hover:bg-amber-500/10' },
+              { value: 'negotiate', icon: MessageSquare, label: 'Negotiate', color: 'border-violet-500/30 text-violet-400 hover:bg-violet-500/10' },
             ].map(({ value, icon: Icon, label, color }) => (
               <button
                 key={value}
@@ -222,7 +222,7 @@ export default function CandidatePortalPage() {
                   value={counterSalary}
                   onChange={(e) => setCounterSalary(e.target.value)}
                   placeholder="Your expected salary"
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500/50"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-violet-500/50"
                 />
               </div>
             </div>
@@ -236,7 +236,7 @@ export default function CandidatePortalPage() {
                 onChange={(e) => setCandidateNote(e.target.value)}
                 placeholder="Any comments or questions..."
                 rows={3}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500/50 resize-none"
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-violet-500/50 resize-none"
               />
             </div>
           )}
@@ -244,7 +244,7 @@ export default function CandidatePortalPage() {
           <button
             onClick={handleSubmit}
             disabled={!action || submitting}
-            className="w-full py-3 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-black transition-colors"
+            className="w-full py-3 bg-violet-500 hover:bg-violet-400 disabled:opacity-40 disabled:cursor-not-allowed rounded-xl text-sm font-semibold text-black transition-colors"
           >
             {submitting ? 'Submitting...' : 'Submit Response'}
           </button>

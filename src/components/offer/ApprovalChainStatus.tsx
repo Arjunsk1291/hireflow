@@ -35,7 +35,7 @@ export function ApprovalChainStatus({ approvals }: { approvals: (OfferApproval &
                   : step.status === 'rejected'
                   ? 'border-red-500/40 bg-red-500/10 text-red-400'
                   : step.stepOrder === currentStep
-                  ? 'border-amber-500/40 bg-amber-500/10 text-amber-400'
+                  ? 'border-violet-500/40 bg-violet-500/10 text-violet-400'
                   : 'border-white/8 bg-white/4 text-slate-500'
               }`}
             >
@@ -50,7 +50,7 @@ export function ApprovalChainStatus({ approvals }: { approvals: (OfferApproval &
               )}
               {step.status === 'pending' && step.stepOrder === currentStep && (
                 <motion.div
-                  className="absolute inset-0 rounded-lg border border-amber-500"
+                  className="absolute inset-0 rounded-lg border border-violet-500"
                   animate={{ scale: [1, 1.05, 1], opacity: [1, 0.5, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />

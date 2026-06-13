@@ -16,34 +16,39 @@ interface StatCardProps {
   className?: string;
 }
 
-export function StatCard({ title, value, icon: Icon, color = '#f59e0b', prefix, suffix, trend, className }: StatCardProps) {
+export function StatCard({ title, value, icon: Icon, color = '#6e63f0', prefix, suffix, trend, className }: StatCardProps) {
   return (
     <motion.div
-      className={cn('glass-card p-5', className)}
-      whileHover={{ y: -4, scale: 1.01 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className={cn('glass-card p-5 group', className)}
+      whileHover={{ y: -5 }}
+      transition={{ type: 'spring', stiffness: 380, damping: 24 }}
     >
       <div className="flex items-start justify-between">
-        <div>
-          <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">{title}</p>
-          <div className="mt-2 flex items-baseline gap-1">
+        <div className="min-w-0">
+          <p className="text-xs text-slate-400 font-medium">{title}</p>
+          <div className="mt-2.5 flex items-baseline gap-1">
             <CountUp
               value={value}
               prefix={prefix}
               suffix={suffix}
-              className="text-3xl font-bold text-slate-100 font-mono"
+              className="text-[34px] leading-none font-bold text-slate-50 font-mono tracking-tight"
             />
           </div>
           {trend !== undefined && (
-            <div className={`flex items-center gap-1 mt-1.5 text-xs ${trend >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+            <div className={`flex items-center gap-1 mt-2.5 text-xs font-medium ${trend >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
               <span>{trend >= 0 ? '↑' : '↓'}</span>
               <span>{Math.abs(trend)}% this week</span>
             </div>
           )}
         </div>
+        {/* Skeuomorphic icon chip: raised, glossy, soft colored glow */}
         <div
-          className="w-10 h-10 rounded-lg flex items-center justify-center"
-          style={{ backgroundColor: `${color}15`, border: `1px solid ${color}25` }}
+          className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
+          style={{
+            background: `linear-gradient(180deg, ${color}2e 0%, ${color}14 100%)`,
+            border: `1px solid ${color}33`,
+            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 16px -6px ${color}66`,
+          }}
         >
           <Icon size={20} style={{ color }} />
         </div>

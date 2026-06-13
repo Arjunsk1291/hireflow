@@ -78,12 +78,12 @@ export default async function CandidatesPage({ searchParams }: PageProps) {
                 href={s.value === 'all' ? '/candidates' : `/candidates?status=${s.value}`}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
                   isActive
-                    ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                    ? 'bg-violet-500/15 text-violet-400 border border-violet-500/30'
                     : 'text-slate-500 hover:text-slate-300 hover:bg-white/4'
                 }`}
               >
                 {s.label}
-                <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${isActive ? 'bg-amber-500/20' : 'bg-white/6'}`}>
+                <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${isActive ? 'bg-violet-500/20' : 'bg-white/6'}`}>
                   {count}
                 </span>
               </Link>

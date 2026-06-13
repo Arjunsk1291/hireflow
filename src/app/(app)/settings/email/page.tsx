@@ -48,7 +48,7 @@ export default function EmailSettingsPage() {
 
       <ScrollReveal>
         <form onSubmit={handleSubmit(onSubmit)} className="glass-card p-6 space-y-4">
-          <div className="p-3 bg-amber-500/5 border border-amber-500/15 rounded-lg text-xs text-amber-400/80 mb-2">
+          <div className="p-3 bg-violet-500/5 border border-violet-500/15 rounded-lg text-xs text-violet-400/80 mb-2">
             These settings are optional. Email features gracefully degrade when not configured.
           </div>
 

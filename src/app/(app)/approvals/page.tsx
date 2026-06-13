@@ -43,17 +43,17 @@ export default async function ApprovalsPage() {
 
       {myPendingOffers.length > 0 && (
         <ScrollReveal>
-          <h2 className="font-display text-xs text-amber-400 mb-4">NEEDS YOUR ACTION</h2>
+          <h2 className="font-display text-xs text-violet-400 mb-4">NEEDS YOUR ACTION</h2>
           <div className="space-y-4 mb-10">
             {myPendingOffers.map((offer) => (
               <Link key={offer.id} href={`/candidates/${offer.candidate.id}/offer`}>
-                <div className="glass-card p-5 hover:border-amber-500/40 transition-colors cursor-pointer border border-amber-500/20">
+                <div className="glass-card p-5 hover:border-violet-500/40 transition-colors cursor-pointer border border-violet-500/20">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-start gap-3">
                       <Avatar name={offer.candidate.fullName} size="sm" />
                       <div>
                         <div className="font-medium text-slate-100">{offer.candidate.fullName}</div>
-                        <div className="text-xs text-amber-400">{offer.candidate.appliedRoleTitle}</div>
+                        <div className="text-xs text-violet-400">{offer.candidate.appliedRoleTitle}</div>
                         <div className="text-xs text-slate-500 mt-1">
                           {formatCurrency(offer.offeredSalary ?? 0, offer.currency)}
                           {offer.outsideBand && <span className="ml-2 text-orange-400">⚠ Outside Band</span>}

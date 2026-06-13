@@ -153,7 +153,7 @@ export default function OfferPage() {
         {/* Offer Form */}
         <ScrollReveal>
           <form onSubmit={handleSubmit(onSave as never)} className="glass-card p-6 space-y-4">
-            <h2 className="font-display text-xs text-amber-400 mb-2">OFFER TERMS</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-2">OFFER TERMS</h2>
             <div className="grid grid-cols-2 gap-4">
               <Input label="Offered Salary *" type="number" placeholder="150000" {...register('offeredSalary')} error={errors.offeredSalary?.message} />
               <Select label="Currency" options={['USD','AED','SAR','GBP','EUR'].map((c) => ({ value: c, label: c }))} {...register('currency')} />
@@ -169,7 +169,7 @@ export default function OfferPage() {
             <Textarea label="Benefits" placeholder="Health insurance, Housing allowance, Annual flights..." rows={3} {...register('benefits')} />
             <Textarea label="Additional Notes" rows={2} {...register('additionalNotes')} />
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="outsideBand" className="accent-amber-500" {...register('outsideBand')} />
+              <input type="checkbox" id="outsideBand" className="accent-violet-500" {...register('outsideBand')} />
               <label htmlFor="outsideBand" className="text-xs text-slate-400">Outside salary band (requires Finance approval)</label>
             </div>
             <Button type="submit" loading={loading} className="w-full">Save Offer</Button>
@@ -182,7 +182,7 @@ export default function OfferPage() {
             <div className="space-y-4">
               {/* Status */}
               <div className="glass-card p-4">
-                <h2 className="font-display text-xs text-amber-400 mb-3">OFFER STATUS</h2>
+                <h2 className="font-display text-xs text-violet-400 mb-3">OFFER STATUS</h2>
                 <div className="text-sm font-medium text-slate-200 capitalize mb-2">
                   {offer.status.replace(/_/g, ' ')}
                 </div>
@@ -195,14 +195,14 @@ export default function OfferPage() {
 
               {/* Actions */}
               <div className="glass-card p-4 space-y-3">
-                <h2 className="font-display text-xs text-amber-400 mb-3">ACTIONS</h2>
+                <h2 className="font-display text-xs text-violet-400 mb-3">ACTIONS</h2>
                 <Button variant="outline" onClick={handleGeneratePdf} loading={actionLoading === 'pdf'} className="w-full justify-start">
                   <FileText size={14} />
                   Generate PDF Letter
                 </Button>
                 {offer.offerLetterPath && (
                   <a href={`/api/files/${offer.offerLetterPath}`} target="_blank" rel="noopener noreferrer"
-                    className="text-xs text-amber-400 hover:text-amber-300 block">
+                    className="text-xs text-violet-400 hover:text-violet-300 block">
                     View Generated PDF →
                   </a>
                 )}
@@ -222,12 +222,12 @@ export default function OfferPage() {
               {/* Approval Chain */}
               {offer.approvals.length > 0 && (
                 <div className="glass-card p-4">
-                  <h2 className="font-display text-xs text-amber-400 mb-4">APPROVAL CHAIN</h2>
+                  <h2 className="font-display text-xs text-violet-400 mb-4">APPROVAL CHAIN</h2>
                   <ApprovalChainStatus approvals={offer.approvals as never} />
                   <div className="mt-4 space-y-2">
                     {offer.approvals.filter((a) => a.status === 'pending').map((approval) => (
-                      <div key={approval.id} className="flex items-center gap-2 p-2 bg-amber-500/5 rounded-lg border border-amber-500/20">
-                        <span className="text-xs text-amber-400 flex-1">{approval.step.replace(/_/g, ' ')} approval pending</span>
+                      <div key={approval.id} className="flex items-center gap-2 p-2 bg-violet-500/5 rounded-lg border border-violet-500/20">
+                        <span className="text-xs text-violet-400 flex-1">{approval.step.replace(/_/g, ' ')} approval pending</span>
                         <Button size="sm" variant="ghost" onClick={() => handleApprove(approval.id)} loading={actionLoading === approval.id}>
                           <CheckCircle size={14} className="text-green-400" />
                         </Button>
@@ -244,12 +244,12 @@ export default function OfferPage() {
               {offer.response && (
                 <div className={`glass-card p-4 border ${
                   offer.response.action === 'accept' ? 'border-green-500/30' :
-                  offer.response.action === 'decline' ? 'border-red-500/30' : 'border-amber-500/30'
+                  offer.response.action === 'decline' ? 'border-red-500/30' : 'border-violet-500/30'
                 }`}>
-                  <h2 className="font-display text-xs text-amber-400 mb-2">CANDIDATE RESPONSE</h2>
+                  <h2 className="font-display text-xs text-violet-400 mb-2">CANDIDATE RESPONSE</h2>
                   <div className={`font-semibold capitalize ${
                     offer.response.action === 'accept' ? 'text-green-400' :
-                    offer.response.action === 'decline' ? 'text-red-400' : 'text-amber-400'
+                    offer.response.action === 'decline' ? 'text-red-400' : 'text-violet-400'
                   }`}>
                     {offer.response.action}ed
                   </div>

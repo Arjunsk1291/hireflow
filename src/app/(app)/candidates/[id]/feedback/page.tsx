@@ -85,7 +85,7 @@ export default function FeedbackPage() {
   const ScoreSlider = ({ name, label }: { name: keyof FormData; label: string }) => (
     <div className="space-y-1.5">
       <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider">{label}</label>
-      <input type="range" min="1" max="10" className="w-full accent-amber-500" {...register(name)} />
+      <input type="range" min="1" max="10" className="w-full accent-violet-500" {...register(name)} />
       <div className="flex justify-between text-xs text-slate-600"><span>1</span><span>5</span><span>10</span></div>
     </div>
   );
@@ -100,14 +100,14 @@ export default function FeedbackPage() {
       <form onSubmit={handleSubmit(onSubmit as never)} className="space-y-6">
         <ScrollReveal>
           <div className="glass-card p-6 space-y-4">
-            <h2 className="font-display text-xs text-amber-400 mb-4">SELECT INTERVIEW ROUND</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-4">SELECT INTERVIEW ROUND</h2>
             {interviews.length === 0 ? (
               <p className="text-xs text-slate-500">No interviews scheduled for this candidate.</p>
             ) : (
               <div className="space-y-2">
                 {interviews.map((interview) => (
                   <label key={interview.id} className="flex items-center gap-3 p-3 rounded-lg bg-white/3 hover:bg-white/5 cursor-pointer transition-colors border border-white/5">
-                    <input type="radio" value={interview.id} {...register('interviewId')} className="accent-amber-500" />
+                    <input type="radio" value={interview.id} {...register('interviewId')} className="accent-violet-500" />
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-slate-200">
@@ -131,7 +131,7 @@ export default function FeedbackPage() {
 
         <ScrollReveal delay={0.1}>
           <div className="glass-card p-6 space-y-5">
-            <h2 className="font-display text-xs text-amber-400 mb-4">SCORECARD</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-4">SCORECARD</h2>
             <ScoreSlider name="scoreTechnical" label="Technical Skills" />
             <ScoreSlider name="scoreCommunication" label="Communication" />
             <ScoreSlider name="scoreProblemSolving" label="Problem Solving" />

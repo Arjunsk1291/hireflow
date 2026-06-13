@@ -22,9 +22,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           <select
             ref={ref}
             className={cn(
-              'w-full appearance-none bg-[#0a1628] border border-white/8 rounded-lg px-3 py-2.5 pr-10',
+              'w-full appearance-none bg-[#15161d] border border-white/8 rounded-lg px-3 py-2.5 pr-10',
               'text-sm text-slate-100 transition-all duration-200',
-              'focus:outline-none focus:ring-1 focus:ring-amber-500/60 focus:border-amber-500/40',
+              'focus:outline-none focus:ring-1 focus:ring-violet-500/60 focus:border-violet-500/40',
               'hover:border-white/12',
               error && 'border-red-500/50',
               className,
@@ -33,7 +33,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           >
             {placeholder && <option value="">{placeholder}</option>}
             {options.map((opt) => (
-              <option key={opt.value} value={opt.value} className="bg-[#0d1a2d]">
+              <option key={opt.value} value={opt.value} className="bg-[#15161d]">
                 {opt.label}
               </option>
             ))}

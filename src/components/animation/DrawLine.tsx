@@ -13,7 +13,7 @@ interface DrawLineProps {
 export function DrawLine({
   className,
   orientation = 'vertical',
-  color = '#f59e0b',
+  color = '#6e63f0',
   thickness = 2,
   length = '100%',
 }: DrawLineProps) {

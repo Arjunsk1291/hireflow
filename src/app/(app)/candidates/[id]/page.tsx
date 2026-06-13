@@ -57,7 +57,7 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
             <Avatar name={candidate.fullName} size="xl" />
             <div>
               <h1 className="text-2xl font-bold text-slate-100">{candidate.fullName}</h1>
-              <p className="text-amber-400 mt-0.5">{candidate.appliedRoleTitle}</p>
+              <p className="text-violet-400 mt-0.5">{candidate.appliedRoleTitle}</p>
               <div className="flex items-center gap-3 mt-2 text-sm text-slate-500">
                 {candidate.currentEmployer && (
                   <span className="flex items-center gap-1"><Briefcase size={13} />{candidate.currentEmployer}</span>
@@ -100,10 +100,10 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {/* Contact Info */}
           <ScrollReveal>
             <div className="glass-card p-5">
-              <h2 className="font-display text-xs text-amber-400 mb-4">CONTACT</h2>
+              <h2 className="font-display text-xs text-violet-400 mb-4">CONTACT</h2>
               <div className="space-y-2">
                 {candidate.email && (
-                  <a href={`mailto:${candidate.email}`} className="flex items-center gap-2 text-sm text-slate-300 hover:text-amber-400 transition-colors">
+                  <a href={`mailto:${candidate.email}`} className="flex items-center gap-2 text-sm text-slate-300 hover:text-violet-400 transition-colors">
                     <Mail size={14} className="text-slate-500" />
                     {candidate.email}
                   </a>
@@ -134,7 +134,7 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {candidate.cvReviews.length > 0 && (
             <ScrollReveal>
               <div className="glass-card p-5">
-                <h2 className="font-display text-xs text-amber-400 mb-4">CV REVIEWS</h2>
+                <h2 className="font-display text-xs text-violet-400 mb-4">CV REVIEWS</h2>
                 <div className="space-y-3">
                   {candidate.cvReviews.map((review) => (
                     <div key={review.id} className="p-3 bg-white/3 rounded-lg border border-white/8">
@@ -153,9 +153,9 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
                       </div>
                       {review.scoreTechnical != null && (
                         <div className="flex gap-4 text-xs text-slate-500 mb-2">
-                          <span>Technical: <span className="text-amber-400">{review.scoreTechnical}/10</span></span>
-                          <span>Experience: <span className="text-amber-400">{review.scoreExperience}/10</span></span>
-                          <span>Culture: <span className="text-amber-400">{review.scoreCulture}/10</span></span>
+                          <span>Technical: <span className="text-violet-400">{review.scoreTechnical}/10</span></span>
+                          <span>Experience: <span className="text-violet-400">{review.scoreExperience}/10</span></span>
+                          <span>Culture: <span className="text-violet-400">{review.scoreCulture}/10</span></span>
                         </div>
                       )}
                       {review.comments && <p className="text-xs text-slate-400">{review.comments}</p>}
@@ -170,7 +170,7 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {candidate.interviews.length > 0 && (
             <ScrollReveal>
               <div className="glass-card p-5">
-                <h2 className="font-display text-xs text-amber-400 mb-4">INTERVIEWS</h2>
+                <h2 className="font-display text-xs text-violet-400 mb-4">INTERVIEWS</h2>
                 <div className="space-y-4">
                   {candidate.interviews.map((interview) => (
                     <div key={interview.id} className="p-4 bg-white/3 rounded-lg border border-white/8">
@@ -206,7 +206,7 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {candidate.offer && (
             <ScrollReveal>
               <div className="glass-card p-5">
-                <h2 className="font-display text-xs text-amber-400 mb-4">OFFER</h2>
+                <h2 className="font-display text-xs text-violet-400 mb-4">OFFER</h2>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-slate-500">Offered Salary</span>
@@ -250,13 +250,13 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {cvData && (
             <ScrollReveal>
               <div className="glass-card p-5">
-                <h2 className="font-display text-xs text-amber-400 mb-4">CV EXTRACT</h2>
+                <h2 className="font-display text-xs text-violet-400 mb-4">CV EXTRACT</h2>
                 {(cvData.skills as string[])?.length > 0 && (
                   <div className="mb-4">
                     <p className="text-xs text-slate-500 mb-2">Skills</p>
                     <div className="flex flex-wrap gap-1.5">
                       {(cvData.skills as string[]).slice(0, 20).map((skill, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-amber-500/10 text-amber-400/80 border border-amber-500/15 rounded-full text-[10px]">
+                        <span key={i} className="px-2 py-0.5 bg-violet-500/10 text-violet-400/80 border border-violet-500/15 rounded-full text-[10px]">
                           {skill}
                         </span>
                       ))}
@@ -285,7 +285,7 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {/* Quick Stats */}
           <ScrollReveal>
             <div className="glass-card p-5 space-y-3">
-              <h2 className="font-display text-xs text-amber-400 mb-3">DETAILS</h2>
+              <h2 className="font-display text-xs text-violet-400 mb-3">DETAILS</h2>
               <div className="space-y-2 text-sm">
                 {candidate.expectedSalary && (
                   <div className="flex justify-between">
@@ -322,7 +322,7 @@ export default async function CandidateDetailPage({ params }: { params: Promise<
           {/* Activity Timeline */}
           <ScrollReveal>
             <div className="glass-card p-5">
-              <h2 className="font-display text-xs text-amber-400 mb-4">ACTIVITY</h2>
+              <h2 className="font-display text-xs text-violet-400 mb-4">ACTIVITY</h2>
               <CandidateTimeline events={candidate.auditEvents as AuditEvent[]} />
             </div>
           </ScrollReveal>

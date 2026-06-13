@@ -24,7 +24,7 @@ export function CandidateCard({ candidate }: { candidate: CandidateWithRelations
               <h3 className="font-medium text-sm text-slate-100 truncate">{candidate.fullName}</h3>
               <ChevronRight size={14} className="text-slate-600 shrink-0 mt-0.5" />
             </div>
-            <p className="text-xs text-amber-400/80 mt-0.5 truncate">{candidate.appliedRoleTitle}</p>
+            <p className="text-xs text-violet-400/80 mt-0.5 truncate">{candidate.appliedRoleTitle}</p>
 
             <div className="flex items-center gap-3 mt-2 text-xs text-slate-500">
               {candidate.currentEmployer && (

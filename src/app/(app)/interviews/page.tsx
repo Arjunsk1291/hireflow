@@ -32,7 +32,7 @@ export default async function InterviewsPage() {
   const cancelled = interviews.filter((i) => i.status === 'cancelled');
 
   const groups = [
-    { title: 'UPCOMING', color: 'text-amber-400', interviews: upcoming },
+    { title: 'UPCOMING', color: 'text-violet-400', interviews: upcoming },
     { title: 'COMPLETED', color: 'text-green-400', interviews: completed },
     { title: 'CANCELLED', color: 'text-slate-500', interviews: cancelled },
   ];
@@ -49,13 +49,13 @@ export default async function InterviewsPage() {
               <StaggerList className="space-y-3">
                 {group.map((interview) => (
                   <Link key={interview.id} href={`/candidates/${interview.candidate.id}`}>
-                    <div className="glass-card p-4 hover:border-amber-500/30 transition-colors cursor-pointer">
+                    <div className="glass-card p-4 hover:border-violet-500/30 transition-colors cursor-pointer">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex items-start gap-3">
                           <Avatar name={interview.candidate.fullName} size="sm" />
                           <div>
                             <div className="font-medium text-slate-200 text-sm">{interview.candidate.fullName}</div>
-                            <div className="text-xs text-amber-400">{interview.candidate.appliedRoleTitle}</div>
+                            <div className="text-xs text-violet-400">{interview.candidate.appliedRoleTitle}</div>
                             <div className="text-xs text-slate-500 mt-1">
                               {interview.roundName ?? `Round ${interview.roundNumber}`}
                             </div>

@@ -6,7 +6,7 @@ import { StaggerList } from '@/components/animation/StaggerList';
 import { StatusBadge } from '@/components/candidates/StatusBadge';
 import { timeAgo, formatCurrency } from '@/lib/utils';
 import Link from 'next/link';
-import { PipelineSceneWrapper } from '@/components/dashboard/PipelineSceneWrapper';
+import { PipelineFunnel } from '@/components/dashboard/PipelineFunnel';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
 
 async function getDashboardData() {
@@ -48,7 +48,7 @@ export default async function DashboardPage() {
   const userName = session.user.name?.split(' ')[0] ?? 'there';
 
   return (
-    <div className="p-8 max-w-7xl">
+    <div className="p-5 sm:p-7 lg:p-8 max-w-7xl mx-auto">
       <PageHeader
         title={`Good morning, ${userName}`}
         subtitle="Here's what's happening in your hiring pipeline today"
@@ -62,36 +62,37 @@ export default async function DashboardPage() {
         hired={hired}
       />
 
-      {/* 3D Pipeline Hero */}
-      <ScrollReveal className="glass-card mb-8 overflow-hidden">
-        <div className="px-6 pt-5 pb-2">
-          <h2 className="font-display text-sm text-amber-400 mb-1">HIRING PIPELINE</h2>
-          <p className="text-xs text-slate-500">Live candidate distribution across all stages</p>
+      {/* Pipeline funnel */}
+      <ScrollReveal className="glass-card p-6 mt-6 mb-6">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="font-display text-base text-slate-100">Hiring pipeline</h2>
+            <p className="text-xs text-slate-500 mt-0.5">Live candidate distribution across all stages</p>
+          </div>
+          <Link href="/candidates" className="text-xs text-violet-300 hover:text-violet-200 transition-colors">View all →</Link>
         </div>
-        <div className="pipeline-hero">
-          <PipelineSceneWrapper stageCounts={stageCounts} />
-        </div>
+        <PipelineFunnel stageCounts={stageCounts} />
       </ScrollReveal>
 
       {/* Recent Candidates */}
       <ScrollReveal>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-sm text-slate-400">RECENT CANDIDATES</h2>
-          <Link href="/candidates" className="text-xs text-amber-400 hover:text-amber-300 transition-colors">
+          <h2 className="font-display text-base text-slate-100">Recent candidates</h2>
+          <Link href="/candidates" className="text-xs text-violet-300 hover:text-violet-200 transition-colors">
             View all →
           </Link>
         </div>
-        <StaggerList className="space-y-2" staggerDelay={0.06}>
+        <StaggerList className="space-y-2.5" staggerDelay={0.06}>
           {recentCandidates.map((c) => (
             <Link key={c.id} href={`/candidates/${c.id}`} className="block">
-              <div className="glass-card p-4 hover:border-amber-500/30 transition-colors cursor-pointer">
+              <div className="tactile glass-card p-4 cursor-pointer">
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                       <span className="text-sm font-medium text-slate-100 truncate">{c.fullName}</span>
                       <StatusBadge status={c.status} />
                     </div>
-                    <div className="text-xs text-slate-500 mt-0.5">
+                    <div className="text-xs text-slate-500 mt-1">
                       {c.appliedRoleTitle}
                       {c.currentEmployer && ` · ${c.currentEmployer}`}
                     </div>
@@ -114,11 +115,11 @@ export default async function DashboardPage() {
         ].map((item, i) => (
           <Link key={item.href} href={item.href}>
             <div className="glass-card p-5 cursor-pointer group relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/0 group-hover:via-amber-500/60 to-transparent transition-all duration-500" />
-              <div className="font-mono text-[10px] text-slate-600 group-hover:text-amber-500/80 transition-colors">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/0 group-hover:via-violet-500/60 to-transparent transition-all duration-500" />
+              <div className="font-mono text-[10px] text-slate-600 group-hover:text-violet-500/80 transition-colors">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              <div className="font-display text-sm text-slate-200 group-hover:text-amber-300 mt-3 transition-colors">
+              <div className="font-display text-sm text-slate-200 group-hover:text-violet-300 mt-3 transition-colors">
                 {item.label}
               </div>
               <div className="text-[11px] text-slate-600 mt-1">{item.desc}</div>

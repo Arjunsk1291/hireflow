@@ -35,7 +35,7 @@ export default async function SalaryBandsPage() {
       ) : (
         Object.entries(byDept).map(([dept, deptBands]) => (
           <ScrollReveal key={dept} className="mb-6">
-            <h2 className="font-display text-xs text-amber-400 mb-3">{dept.toUpperCase()}</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-3">{dept.toUpperCase()}</h2>
             <div className="glass-card divide-y divide-white/8">
               {deptBands.map((band) => (
                 <div key={band.id} className="grid grid-cols-5 gap-4 p-3 items-center text-sm">
@@ -44,7 +44,7 @@ export default async function SalaryBandsPage() {
                     <div className="text-xs text-slate-500">{band.roleTitle}</div>
                   </div>
                   <div className="text-slate-400 text-xs">Min: {formatCurrency(band.minSalary, band.currency)}</div>
-                  <div className="text-amber-400 text-xs">Mid: {formatCurrency((band.minSalary + band.maxSalary) / 2, band.currency)}</div>
+                  <div className="text-violet-400 text-xs">Mid: {formatCurrency((band.minSalary + band.maxSalary) / 2, band.currency)}</div>
                   <div className="text-slate-400 text-xs">Max: {formatCurrency(band.maxSalary, band.currency)}</div>
                   <div className="text-xs text-slate-600">{band.currency}</div>
                 </div>

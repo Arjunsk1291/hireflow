@@ -88,7 +88,7 @@ export default function InterviewPage() {
       <form onSubmit={handleSubmit(onSubmit as never)} className="space-y-6">
         <ScrollReveal>
           <div className="glass-card p-6 space-y-4">
-            <h2 className="font-display text-xs text-amber-400">ROUND DETAILS</h2>
+            <h2 className="font-display text-xs text-violet-400">ROUND DETAILS</h2>
             <div className="grid grid-cols-2 gap-4">
               <Input label="Round Name *" placeholder="Technical Interview" {...register('roundName')} error={errors.roundName?.message} className="col-span-2" />
               <Input label="Round Number" type="number" {...register('roundNumber')} />
@@ -107,7 +107,7 @@ export default function InterviewPage() {
 
         <ScrollReveal delay={0.1}>
           <div className="glass-card p-6">
-            <h2 className="font-display text-xs text-amber-400 mb-4">INTERVIEW PANEL</h2>
+            <h2 className="font-display text-xs text-violet-400 mb-4">INTERVIEW PANEL</h2>
             <p className="text-xs text-slate-500 mb-4">Select panelists and designate a lead</p>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {profiles.map((p) => (
@@ -117,7 +117,7 @@ export default function InterviewPage() {
                       type="checkbox"
                       checked={selectedPanelists.includes(p.id)}
                       onChange={() => togglePanelist(p.id)}
-                      className="accent-amber-500"
+                      className="accent-violet-500"
                     />
                     <Avatar name={p.fullName} size="sm" />
                     <div>
@@ -130,7 +130,7 @@ export default function InterviewPage() {
                       type="button"
                       onClick={() => setLeadId(p.id)}
                       className={`text-xs px-2 py-1 rounded transition-colors ${
-                        leadId === p.id ? 'bg-amber-500/20 text-amber-400' : 'text-slate-500 hover:text-amber-400'
+                        leadId === p.id ? 'bg-violet-500/20 text-violet-400' : 'text-slate-500 hover:text-violet-400'
                       }`}
                     >
                       {leadId === p.id ? '★ Lead' : 'Set Lead'}

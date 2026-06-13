@@ -31,7 +31,7 @@ export function CandidateTimeline({ events }: { events: AuditEvent[] }) {
   return (
     <div className="relative">
       <div className="absolute left-5 top-4 bottom-4 flex justify-center" style={{ width: 2 }}>
-        <DrawLine orientation="vertical" length="100%" color="#f59e0b" thickness={2} />
+        <DrawLine orientation="vertical" length="100%" color="#6e63f0" thickness={2} />
       </div>
 
       <div className="space-y-4 pl-12">
@@ -49,8 +49,8 @@ export function CandidateTimeline({ events }: { events: AuditEvent[] }) {
               className="glass-card p-4 relative"
             >
               {/* Dot */}
-              <div className="absolute -left-8 top-5 w-3 h-3 rounded-full bg-amber-500 border-2 border-[#050b14]"
-                style={{ boxShadow: '0 0 8px rgba(245,158,11,0.6)' }} />
+              <div className="absolute -left-8 top-5 w-3 h-3 rounded-full bg-violet-500 border-2 border-[#0c0d12]"
+                style={{ boxShadow: '0 0 8px rgba(110,99,240,0.6)' }} />
 
               <div className="flex items-start gap-3">
                 <span className="text-lg shrink-0">{ACTION_ICONS[event.action] ?? '📌'}</span>

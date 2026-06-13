@@ -6,10 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { signOut } from 'next-auth/react';
 import {
   LayoutDashboard, Users, Calendar, CheckSquare,
-  BarChart3, FileText, Settings, LogOut,
+  BarChart3, FileText, Settings, LogOut, PanelLeftClose, PanelLeft,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar } from '@/components/ui/avatar';
+import { useShell } from './ShellContext';
 import type { Session } from 'next-auth';
 
 const navItems = [
@@ -24,73 +25,115 @@ const navItems = [
 
 export function Sidebar({ session }: { session: Session }) {
   const pathname = usePathname();
+  const { collapsed, toggleCollapsed, mobileOpen, closeMobile } = useShell();
+
+  const role = ((session.user as Record<string, unknown>).roles as string[])?.[0]?.replace(/_/g, ' ') ?? 'User';
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-60 flex flex-col z-40 border-r border-white/5"
-      style={{ background: 'rgba(5, 11, 20, 0.95)', backdropFilter: 'blur(20px)' }}>
+    <>
+      {/* Mobile backdrop */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={closeMobile}
+          />
+        )}
+      </AnimatePresence>
 
-      {/* Logo */}
-      <div className="flex items-center gap-3 px-5 h-16 border-b border-white/5">
-        <div className="w-2.5 h-2.5 rotate-45 bg-amber-500 shrink-0" style={{ boxShadow: '0 0 14px rgba(245,158,11,0.7)' }} />
-        <div>
-          <div className="font-display text-sm text-slate-100 tracking-[0.18em]">HIREFLOW</div>
-          <div className="font-mono text-[9px] text-slate-600 tracking-[0.25em]">AVENIR INT&apos;L</div>
+      <aside
+        className={cn(
+          'app-sidebar glass-panel fixed top-0 left-0 h-full z-50 flex flex-col w-[248px]',
+          mobileOpen ? 'translate-x-0' : '-translate-x-full',
+          'lg:translate-x-0',
+        )}
+        style={{ borderRight: '1px solid var(--glass-stroke)' }}
+      >
+        {/* Brand */}
+        <div className="flex items-center gap-3 h-16 px-4 border-b border-white/6 shrink-0">
+          <div className="w-9 h-9 rounded-xl shrink-0 grid place-items-center skeu-btn">
+            <span className="font-display text-white text-base">H</span>
+          </div>
+          {!collapsed && (
+            <div className="overflow-hidden lg:block">
+              <div className="font-display text-[15px] text-slate-50 leading-tight">HireFlow</div>
+              <div className="text-[10px] text-slate-500 truncate">Avenir Int&apos;l Engineers</div>
+            </div>
+          )}
         </div>
-      </div>
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const isActive = pathname === href || pathname.startsWith(href + '/') && href !== '/';
-
-          return (
-            <motion.div key={href} whileHover={{ x: 4 }} transition={{ type: 'spring', stiffness: 400, damping: 20 }}>
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto overflow-x-hidden">
+          {navItems.map(({ href, label, icon: Icon }) => {
+            const isActive = pathname === href || (pathname.startsWith(href + '/') && href !== '/');
+            return (
               <Link
+                key={href}
                 href={href}
+                onClick={closeMobile}
                 className={cn(
-                  'relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200',
+                  'group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors duration-200',
+                  collapsed && 'lg:justify-center lg:px-0',
                   isActive
-                    ? 'text-amber-400 bg-amber-500/10'
-                    : 'text-slate-500 hover:text-slate-300 hover:bg-white/4',
+                    ? 'text-white bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-white/[0.04]',
                 )}
               >
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute left-0 top-1 bottom-1 w-0.5 bg-amber-500 rounded-full"
-                      style={{ boxShadow: '0 0 12px #f59e0b' }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    />
-                  )}
-                </AnimatePresence>
-                <Icon size={16} />
-                {label}
-              </Link>
-            </motion.div>
-          );
-        })}
-      </nav>
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-violet-400"
+                    style={{ boxShadow: '0 0 12px var(--accent-glow)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                  />
+                )}
+                <Icon size={18} className="shrink-0" />
+                {!collapsed && <span className="lg:block truncate">{label}</span>}
 
-      {/* User */}
-      <div className="px-3 py-4 border-t border-white/5">
-        <div className="flex items-center gap-3 px-2 py-2">
-          <Avatar name={session.user.name ?? 'User'} size="sm" />
-          <div className="flex-1 min-w-0">
-            <div className="text-xs font-medium text-slate-200 truncate">{session.user.name}</div>
-            <div className="text-[10px] text-slate-600 truncate">
-              {((session.user as Record<string, unknown>).roles as string[])?.[0]?.replace(/_/g, ' ') ?? 'User'}
-            </div>
+                {/* Tooltip when collapsed (desktop) */}
+                {collapsed && (
+                  <span className="pointer-events-none absolute left-full ml-3 px-2.5 py-1.5 rounded-lg glass-panel text-xs text-slate-100 whitespace-nowrap opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 hidden lg:block z-50">
+                    {label}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Collapse toggle (desktop only) */}
+        <button
+          onClick={toggleCollapsed}
+          className="hidden lg:flex items-center gap-3 mx-3 mb-2 px-3 py-2.5 rounded-xl text-slate-500 hover:text-slate-200 hover:bg-white/[0.04] transition-colors"
+          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {collapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
+          {!collapsed && <span className="text-sm">Collapse</span>}
+        </button>
+
+        {/* User */}
+        <div className="px-3 py-3 border-t border-white/6 shrink-0">
+          <div className={cn('flex items-center gap-3 px-1.5 py-1.5', collapsed && 'lg:justify-center lg:px-0')}>
+            <Avatar name={session.user.name ?? 'User'} size="sm" />
+            {!collapsed && (
+              <>
+                <div className="flex-1 min-w-0 lg:block">
+                  <div className="text-xs font-medium text-slate-100 truncate">{session.user.name}</div>
+                  <div className="text-[10px] text-slate-500 truncate capitalize">{role}</div>
+                </div>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/auth' })}
+                  className="text-slate-500 hover:text-rose-400 transition-colors p-1"
+                  title="Sign out"
+                >
+                  <LogOut size={15} />
+                </button>
+              </>
+            )}
           </div>
-          <button
-            onClick={() => signOut({ callbackUrl: '/auth' })}
-            className="text-slate-600 hover:text-slate-400 transition-colors"
-            title="Sign out"
-          >
-            <LogOut size={14} />
-          </button>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }
